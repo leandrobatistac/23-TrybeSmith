@@ -1,4 +1,4 @@
-import jwt, { SignOptions } from 'jsonwebtoken';
+import jwt, { JwtPayload, SignOptions } from 'jsonwebtoken';
 
 const secretKey = process.env.JWT_SECRET as string;
 const configJWT:SignOptions = {
@@ -14,7 +14,7 @@ const generateToken = (id: number, username:string) => {
 
 const validateToken = (token: string) => {
   const isValid = jwt.verify(token, secretKey);
-  return isValid;
+  return isValid as JwtPayload;
 };
 
 const tokens = {

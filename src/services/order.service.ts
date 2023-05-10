@@ -6,8 +6,14 @@ async function findAll(): Promise<Order[]> {
   return orders;
 }
 
+async function create(userId:number): Promise<number> {
+  const newOrder = await orderModel.create(userId);
+  return newOrder;
+}
+
 const orderService = {
   findAll,
+  create,
 };
 
 export default orderService;

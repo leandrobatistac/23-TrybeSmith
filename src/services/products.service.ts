@@ -11,9 +11,17 @@ async function create(product:Product): Promise<Product> {
   return newProduct;
 }
 
+async function update(orderId:number, productId:number[]) {
+  const editedProduct = await Promise.all(
+    productId.map((id) => productModel.update(orderId, id)),
+  );
+  return editedProduct;
+}
+
 const productService = {
   findAll,
   create,
+  update,
 };
 
 export default productService;

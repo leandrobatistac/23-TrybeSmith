@@ -1,4 +1,4 @@
-import { RowDataPacket } from 'mysql2/promise';
+import { RowDataPacket, ResultSetHeader } from 'mysql2/promise';
 import { Order } from '../types/Order';
 import connection from './connection';
 
@@ -12,8 +12,19 @@ async function findAll(): Promise<Order[]> {
   return rows as Order[];
 }
 
+async function create(userId:number): Promise<number> {
+  const [result] = await connection
+    .execute<ResultSetHeader>(
+    'INSERT INTO Trybesmith.orders (user_id) values (?)',
+    [userId],
+  );
+  const { insertId } = result;
+  return insertId;
+}
+
 const orderModel = {
   findAll,
+  create,
 };
 
 export default orderModel;
