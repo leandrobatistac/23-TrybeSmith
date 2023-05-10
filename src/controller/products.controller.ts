@@ -6,6 +6,15 @@ async function findAll(req: Request, res: Response) {
   return res.json(products);
 }
 
-export default {
+async function create(req: Request, res: Response) {
+  const product = req.body;
+  const newProduct = await productsService.create(product);
+  return res.status(201).json(newProduct);
+}
+
+const productController = {
   findAll,
+  create,
 };
+
+export default productController;
